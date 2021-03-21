@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/yan/CLionProjects/SeaBattle_/GameField.cpp
+GameField.h
+/home/yan/CLionProjects/SeaBattle_/GameField.h
+
+/home/yan/CLionProjects/SeaBattle_/GameField.h
+iostream
+-
+iomanip
+-
+
