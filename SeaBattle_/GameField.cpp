@@ -27,7 +27,7 @@ void GameField::DrawField()
         char sym = (char)(i + 65);
         if(i != 0 && i % SIZE == 0)
         {
-            cout << setw(5);
+            cout << setw(4);
         }
         if(i >= SIZE)
         {
@@ -42,7 +42,7 @@ void GameField::DrawField()
         {
             if(j != 0 && j % SIZE == 0)
             {
-                cout << " " << left << setw(2) << i + 1 << " ";
+                cout << " " << i << " ";
             }
             if(j > SIZE)
             {
@@ -56,45 +56,58 @@ void GameField::DrawField()
     EndStr;
 }
 
-void DrawShips(int x , int y, int pos, int length, int player[][SIZE]){
-    for(int i = 0; i < SIZE; i++)
+void PutShip(int x , int y, int pos, int len, int player[][SIZE]){
+    bool end = false;
+    for(int i = 0; i < SIZE && !end; i++)
     {
-        for(int j = 0; j < SIZE; i++)
+        for(int j = 0; j < SIZE; j++)
         {
             if(i == y && j == x)
             {
                 player[i][j] = 42;
             }
-            if(pos == 0 && length != 0){
+            if(pos == 0 && len != 0){
                 y++;
-                length--;
-            }else if(pos == 1 && length != 0){
+                len--;
+            }else if(pos == 1 && len != 0){
                 x++;
-                length--;
+                len--;
             }
+            (len == 0) ? end = true : false;
         }
     }
 }
 
-void PositionPlayer(int playerA[][SIZE])
+void GameField::PositionPlayerShips(int len)
 {
-    int x, y, pos;
-    bool end = true;
+    int x = 0;
+    int y = 0;
+    int pos = 0;
+    char xSym = 'A';
+
+    string dot;
+    (len == 1) ? dot = " точки " : dot = " точек ";
+
+    bool isDiapazone;
+    bool isField;
     do{
-        cout << "\nВведите позицию и расположение коробля(x, y, 0 - вериткально, 1 - горизонтально): ";
-        scanf("%d %*c %d %*c %d", &x, &y, &pos);
-        printf("%d, %d, %d", x, y, pos);
+        cout << "\nВведите позицию коробля из " << len << dot << "(A,1,(0 - вериткально, 1 - горизонтально)): ";
+        cin >> xSym;
+        cin.ignore(1);
+        cin >> y;
+        cin.ignore(1);
+        cin >> pos;
+        cin.ignore(32767, '\n');
 
-    }while(x < 0 || x > 9 ||
-           y < 0 || y > 9 ||
-           pos < 0 || pos > 1);
-    DrawShips(x, y, pos, 4, playerA);
+        x = (int)(xSym-65);
+//        printf("%d, %d, %d", x, y, pos);
+        isDiapazone = x >= 0 || x <= 9 || y >= 0 || y <= 9 || pos >= 0 || pos <= 1;
+        if(pos == 0)
+        {
+            isField = y + len < 9;
+        }else{
+            isField = x + len < 9;
+        }
+    }while(!isDiapazone && !isField);
+    PutShip(x, y, pos, len, fieldA);
 }
-
-
-void GameField::PosShips()
-{
-    PositionPlayer(fieldA);
-}
-
-
