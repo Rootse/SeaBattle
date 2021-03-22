@@ -111,3 +111,6 @@ void GameField::PositionPlayerShips(int len)
     }while(!isDiapazone && !isField);
     PutShip(x, y, pos, len, fieldA);
 }
+
+
+

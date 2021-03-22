@@ -94,12 +94,12 @@ clean: CMakeFiles/SeaBattle_.dir/clean
 CMakeFiles/SeaBattle_.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SeaBattle_.dir/build.make CMakeFiles/SeaBattle_.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SeaBattle_.dir/build.make CMakeFiles/SeaBattle_.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/yan/CLionProjects/SeaBattle_/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4 "Built target SeaBattle_"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/yan/CLionProjects/SeaBattle_/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5 "Built target SeaBattle_"
 .PHONY : CMakeFiles/SeaBattle_.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/SeaBattle_.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/yan/CLionProjects/SeaBattle_/cmake-build-debug/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/yan/CLionProjects/SeaBattle_/cmake-build-debug/CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/SeaBattle_.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/yan/CLionProjects/SeaBattle_/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/SeaBattle_.dir/rule

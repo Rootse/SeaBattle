@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/SeaBattle_.dir/Game.cpp.o"
   "CMakeFiles/SeaBattle_.dir/GameField.cpp.o"
   "CMakeFiles/SeaBattle_.dir/Ships.cpp.o"
   "CMakeFiles/SeaBattle_.dir/main.cpp.o"

@@ -18,7 +18,7 @@ private:
 public:
     void FillField();
     void DrawField();
-    void PosShips();
+    void PositionPlayerShips(int len);
 
 protected:
 };

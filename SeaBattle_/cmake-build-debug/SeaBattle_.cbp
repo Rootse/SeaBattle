@@ -82,6 +82,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/yan/CLionProjects/SeaBattle_/Game.cpp">
+			<Option target="SeaBattle_"/>
+		</Unit>
+		<Unit filename="/home/yan/CLionProjects/SeaBattle_/Game.h">
+			<Option target="SeaBattle_"/>
+		</Unit>
 		<Unit filename="/home/yan/CLionProjects/SeaBattle_/GameField.cpp">
 			<Option target="SeaBattle_"/>
 		</Unit>
