@@ -17,6 +17,7 @@ private:
 public:
     int fieldA[SIZE][SIZE];
     int fieldB[SIZE][SIZE];
+    int fieldBDraw[SIZE][SIZE];
     void FillField();
     void DrawField();
     void PositionPlayerShips(int player[][SIZE], int len, bool fill);

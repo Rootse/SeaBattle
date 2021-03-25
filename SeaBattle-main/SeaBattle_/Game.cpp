@@ -20,7 +20,7 @@ void GameStart()
         {
             for(int j = 4; j >= i; j--)
             {
-                Game.PositionPlayerShips(Game.fieldA, i, false);
+                Game.PositionPlayerShips(Game.fieldA, i, true);
                 Game.PositionPlayerShips(Game.fieldB, i, true);
                 Game.DrawField();
             }

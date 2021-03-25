@@ -15,6 +15,7 @@ void GameField::FillField()
         {
             fieldA[i][j] = 44;
             fieldB[i][j] = 44;
+            fieldBDraw[i][j] = 44;
         }
     }
 };
@@ -54,62 +55,38 @@ void GameField::DrawField()
 
 void PutShip(int x , int y, bool pos, int len, int player[][SIZE])
 {
-    for(int i = 0; i != (y + 1) && len != 0; i++)
+    for(int i = 0; i < len; i++)
     {
-        if(i == y) {
-            for (int j = 0; j != (x + 1) && len != 0; j++) {
-                if (j == x) {
-                    player[i][j] = 42;
-                    if (!pos) {
-                        y++;
-                        len--;
-                    } else if (pos) {
-                        x++;
-                        len--;
-                    }
-                }
-            }
-        }
+        player[y][x] = 42;
+        (pos) ? x++ : y++;
     }
 }
 
 bool CheckValidPos(int x, int y, bool pos, int len, int playerShips[][SIZE], bool autoFill)
 {
-    bool isDiapazone, isField, isOverlay = true;
-    isDiapazone = x >= 0 || x <= 9 || y >= 0 || y <= 9;
-    if(!pos)
+    bool isOverlay = true;
+    bool isField = false;
+
+    int xLen = x + 1;
+    int yLen = y + 1;
+    (pos) ? xLen += len : yLen += len;
+    (pos) ? isField = xLen <= 10 : isField = yLen <= 10;
+    for(int i = y - 1; i < yLen; i++)
     {
-        isField = y + (len - 1) <= 9;
-    }else{
-        isField = x + (len - 1) <= 9;
-    }
-    for(int i = 0; i < SIZE && i <= y + 1; i++)
-    {
-        if(i == y || i == y + 1 || i == y - 1)
+        for(int j = x - 1; j < xLen; j++)
         {
-            for (int j = 0; j < SIZE && j <= x + 1; j++)
+            if(playerShips[i][j] == 42)
             {
-                if (j == x || j == x + 1 || j == x - 1)
-                {
-                    if(playerShips[i][j] == 42)
-                    {
-                        isOverlay = false;
-                    }
-                    if (!pos && i == y && j == x) {
-                        y++;
-                        len--;
-                    } else if (pos && i == y && j == x) {
-                        x++;
-                        len--;
-                    }
-                }
+                isOverlay = true;
             }
         }
     }
-    if(!isDiapazone || !isField || !isOverlay || !autoFill)
+    if(!isField || !isOverlay)
+    {
+        return false;
+    }else if(!autoFill)
     {
         cout << "\nНеверное значение, попробуйте снова.";
-        return false;
     }
     return true;
 }
@@ -119,33 +96,35 @@ void GameField::PositionPlayerShips(int player[][SIZE], int len, bool autoFill)
     int x = 0;
     int y = 0;
     bool pos;
-    char xSym = 'A';
-
-    string dot;
-    (len == 1) ? dot = " точки " : dot = " точек ";
 
     bool valid = false;
     while(!valid)
     {
         if(!autoFill)
         {
+            char xSym = 'A';
+            string dot;
+            (len == 1) ? dot = " точки " : dot = " точек ";
             cout << "\nВведите позицию коробля из " << len << dot << "(A,1,(0 - вериткально, 1 - горизонтально)): ";
             cin >> xSym;
             cin.ignore(1);
             cin >> y;
             cin.ignore(1);
             cin >> pos;
-//        cin.ignore(32767, '\n');
 
             xSym = toupper(xSym);
             x = (int)(xSym-65);
-//        printf("%d, %d, %d", x, y, pos);
+
         }else{
             x = rand()%10;
             y = rand()%10;
             pos = rand()%2;
         }
 
+        if(x > 9 || x < 0 || y > 9 || y < 0){
+            valid = false;
+            continue;
+        }
         valid = CheckValidPos(x, y, pos, len, player, autoFill);
     }
     PutShip(x, y, pos, len, player);

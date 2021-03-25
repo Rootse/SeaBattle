@@ -6,14 +6,6 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/Yan/Desktop/SeaBattle-main/SeaBattle_/Game.cpp
-Game.h
-C:/Users/Yan/Desktop/SeaBattle-main/SeaBattle_/Game.h
-GameField.h
-C:/Users/Yan/Desktop/SeaBattle-main/SeaBattle_/GameField.h
-
-C:/Users/Yan/Desktop/SeaBattle-main/SeaBattle_/Game.h
-
 C:/Users/Yan/Desktop/SeaBattle-main/SeaBattle_/GameField.cpp
 GameField.h
 C:/Users/Yan/Desktop/SeaBattle-main/SeaBattle_/GameField.h
@@ -24,13 +16,5 @@ iostream
 iomanip
 -
 cstdlib
--
-
-C:/Users/Yan/Desktop/SeaBattle-main/SeaBattle_/main.cpp
-Game.h
-C:/Users/Yan/Desktop/SeaBattle-main/SeaBattle_/Game.h
-windows.h
--
-ctime
 -
 
