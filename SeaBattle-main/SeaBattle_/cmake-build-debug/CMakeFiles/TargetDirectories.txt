@@ -1,3 +1,0 @@
-C:/Users/Yan/Desktop/SeaBattle-main/SeaBattle_/cmake-build-debug/CMakeFiles/SeaBattle_.dir
-C:/Users/Yan/Desktop/SeaBattle-main/SeaBattle_/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/Yan/Desktop/SeaBattle-main/SeaBattle_/cmake-build-debug/CMakeFiles/rebuild_cache.dir
