@@ -1,3 +1,0 @@
-/home/yan/CLionProjects/SeaBattle_/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/yan/CLionProjects/SeaBattle_/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/yan/CLionProjects/SeaBattle_/cmake-build-debug/CMakeFiles/SeaBattle_.dir
