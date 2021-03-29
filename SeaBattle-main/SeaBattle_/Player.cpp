@@ -109,7 +109,7 @@ void Player::Move(Player Player, bool a)
     int pos[SIZE_XY];
     if(!a)
     {
-        cout << "\nВведите координаты для выстрела(A-J | 0-9: ";
+        cout << "\nВведите координаты для выстрела(A-J | 0-9): ";
         GetPosition(pos);
         Player.fieldDraw[pos[0]][pos[1]] = 31;
     }else{
