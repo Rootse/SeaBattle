@@ -10,11 +10,11 @@ private:
     void PutShip(int x, int y, bool pos, int len);
     bool CheckValidPos(int x, int y, bool pos, int len, bool autoFill);
 public:
-    int playerField[SIZE][SIZE];
-    int fieldDraw[SIZE][SIZE];
+    int playerField[SIZE][SIZE][2];
+    int fieldDraw[SIZE][SIZE][2];
     void FillField();
     void PositionPlayerShips(int len, bool autoFill);
-    void Move(Player PlayerB, bool a = false);
+    void Move(Player &Player, bool a = false);
 
 };
 

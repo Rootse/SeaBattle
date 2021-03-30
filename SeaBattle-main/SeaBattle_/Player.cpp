@@ -8,8 +8,10 @@ void Player::FillField()
     {
         for(int j = 0; j < SIZE; j++)
         {
-            playerField[i][j] = 44;
-            fieldDraw[i][j] = 44;
+            playerField[i][j][0] = 37;
+            playerField[i][j][1] = 44;
+            fieldDraw[i][j][0] = 37; // withe
+            fieldDraw[i][j][1] = 44; // blue
         }
     }
 }
@@ -18,7 +20,8 @@ void Player::PutShip(int x, int y, bool pos, int len)
 {
     for(int i = 0; i < len; i++)
     {
-        playerField[y][x] = 42;
+        playerField[y][x][1] = 42;
+        playerField[y][x][0] = 30;
         (pos) ? x++ : y++;
     }
 }
@@ -41,7 +44,7 @@ bool Player::CheckValidPos(int x, int y, bool pos, int len, bool autoFill)
     {
         for(int j = x - 1; j <= xLen; j++)
         {
-            if(playerField[i][j] == 42)
+            if(playerField[i][j][1] == 42)
             {
                 isOverlay = false;
             }
@@ -55,6 +58,17 @@ bool Player::CheckValidPos(int x, int y, bool pos, int len, bool autoFill)
         cout << "\nНеверное значение, попробуйте снова.";
     }
     return true;
+}
+
+bool CheckValidMove(Player &Player, int x, int y)
+{
+    if(Player.playerField[y][x][1] == 42 && (Player.playerField[y][x-1][1] == 42 ||
+                                          Player.playerField[y][x+1][1] == 42 ||
+                                          Player.playerField[y][y-1][1] == 42 ||
+                                          Player.playerField[y][y+1][1] == 42))
+    {
+        Player.fieldDraw[y][x][0] = 31;
+    }
 }
 
 void GetPosition(int pos[], bool a = false)
@@ -104,15 +118,18 @@ void Player::PositionPlayerShips(int len, bool autoFill)
     PutShip(xy[0], xy[1], pos, len);
 }
 
-void Player::Move(Player Player, bool a)
+void Player::Move(Player &Player, bool a)
 {
     int pos[SIZE_XY];
     if(!a)
     {
         cout << "\nВведите координаты для выстрела(A-J | 0-9): ";
         GetPosition(pos);
-        Player.fieldDraw[pos[0]][pos[1]] = 31;
+        CheckValidMove(Player, pos[0], pos[1]);
+        Player.fieldDraw[pos[1]][pos[0]][1] = 40;
     }else{
         GetPosition(pos, true);
+        CheckValidMove(Player, pos[0], pos[1]);
+        playerField[pos[1]][pos[0]][1] = 40;
     }
 }

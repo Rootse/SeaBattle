@@ -24,7 +24,6 @@ void GameStart()
     {
         PlayerA.FillField();
         PlayerB.FillField();
-        PlayerB.FillField();
         Game.DrawField(PlayerA.playerField, PlayerB.fieldDraw);
 
         for(int i = 4; i >= 1; i--)
@@ -36,9 +35,14 @@ void GameStart()
                 Game.DrawField(PlayerA.playerField, PlayerB.fieldDraw);
             }
         }
-        PlayerA.Move(PlayerB);
-        PlayerB.Move(PlayerA, true);
-        Game.DrawField(PlayerA.playerField, PlayerB.fieldDraw);
+        int count = 0;
+        while(count < 100)
+        {
+            PlayerA.Move(PlayerB);
+            PlayerB.Move(PlayerA, true);
+            Game.DrawField(PlayerA.playerField, PlayerB.fieldDraw);
+            count++;
+        }
         end = true;
     }
 }
