@@ -4,14 +4,12 @@
 
 void Player::FillField()
 {
-    for(int i = 0; i < SIZE; i++)
+    for(int i = 0; i < SIZE_FIELD; i++)
     {
-        for(int j = 0; j < SIZE; j++)
+        for(int j = 0; j < SIZE_FIELD; j++)
         {
             playerField[i][j][0] = 37;
             playerField[i][j][1] = 44;
-            fieldDraw[i][j][0] = 37; // withe
-            fieldDraw[i][j][1] = 44; // blue
         }
     }
 }
@@ -58,17 +56,6 @@ bool Player::CheckValidPos(int x, int y, bool pos, int len, bool autoFill)
         cout << "\nНеверное значение, попробуйте снова.";
     }
     return true;
-}
-
-bool CheckValidMove(Player &Player, int x, int y)
-{
-    if(Player.playerField[y][x][1] == 42 && (Player.playerField[y][x-1][1] == 42 ||
-                                          Player.playerField[y][x+1][1] == 42 ||
-                                          Player.playerField[y][y-1][1] == 42 ||
-                                          Player.playerField[y][y+1][1] == 42))
-    {
-        Player.fieldDraw[y][x][0] = 31;
-    }
 }
 
 void GetPosition(int pos[], bool a = false)
@@ -118,18 +105,51 @@ void Player::PositionPlayerShips(int len, bool autoFill)
     PutShip(xy[0], xy[1], pos, len);
 }
 
+bool CheckValidMove(int playerField[][SIZE_FIELD][2], int x, int y)
+{
+    if(playerField[y][x][1] == 44 && x <= 9 && x >= 0 && y <= 9 && y >= 0)
+    {
+        return true;
+    }else{
+        return false;
+    }
+}
+
+void IsHit(int playerField[][SIZE_FIELD][2], int x, int y)
+{
+    bool xLeft = CheckValidMove(playerField, x-1, y);
+    bool xRigth = CheckValidMove(playerField, x+1, y);
+    bool yLeft = CheckValidMove(playerField, x, y-1);
+    bool yRigth = CheckValidMove(playerField, x, y+1);
+
+    if(playerField[y][x][2] == 42)
+    {
+        if((!xLeft || !xRigth) &&
+           (!yLeft || !yRigth))
+        {
+            playerField[y][x][0] = 31; //Text RED
+            playerField[y][x][1] = 41; //BG RED
+        }
+    }else{
+
+    }
+}
+
 void Player::Move(Player &Player, bool a)
 {
     int pos[SIZE_XY];
     if(!a)
     {
-        cout << "\nВведите координаты для выстрела(A-J | 0-9): ";
-        GetPosition(pos);
-        CheckValidMove(Player, pos[0], pos[1]);
-        Player.fieldDraw[pos[1]][pos[0]][1] = 40;
+        bool valid = false;
+        while(!valid){
+            cout << "\nВведите координаты для выстрела(A-J | 0-9): ";
+            GetPosition(pos);
+            valid = CheckValidMove(Player.playerField, pos[0], pos[1]);
+        }
+        IsHit(Player.playerField, pos[0], pos[1]);
     }else{
         GetPosition(pos, true);
-        CheckValidMove(Player, pos[0], pos[1]);
+        CheckValidMove(Player.playerField, pos[0], pos[1]);
         playerField[pos[1]][pos[0]][1] = 40;
     }
 }

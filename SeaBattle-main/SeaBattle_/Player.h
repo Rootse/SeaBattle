@@ -3,15 +3,17 @@
 
 #include "GameField.h"
 
-#define SIZE 10
+#define SIZE_FIELD 10
 
 class Player{
 private:
     void PutShip(int x, int y, bool pos, int len);
     bool CheckValidPos(int x, int y, bool pos, int len, bool autoFill);
+    int ships[SIZE_FIELD];
+    int count = 0;
 public:
-    int playerField[SIZE][SIZE][2];
-    int fieldDraw[SIZE][SIZE][2];
+    int playerField[SIZE_FIELD][SIZE_FIELD][2];
+//    int fieldDraw[SIZE_FIELD][SIZE_FIELD][2];
     void FillField();
     void PositionPlayerShips(int len, bool autoFill);
     void Move(Player &Player, bool a = false);

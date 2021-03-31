@@ -10,17 +10,18 @@
 #define HIT "\x1b[31;44m \x1b[0m"
 #define CELL(a, b) printf("\x1b[1;%d;%dm o \x1b[0m", (a), (b))
 #define EndStr cout << "\n";
+#define SIZE_FIELD 10
 
 using namespace std;
 
-#define SIZE 10
+
 
 class GameField
 {
 private:
 
 public:
-    void DrawField(int PlayerA[][SIZE][2], int PlayerB[][SIZE][2]);
+    void DrawField(int PlayerA[][SIZE_FIELD][2], int PlayerB[][SIZE_FIELD][2]);
 
 };
 

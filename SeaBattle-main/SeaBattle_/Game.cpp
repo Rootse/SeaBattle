@@ -24,7 +24,7 @@ void GameStart()
     {
         PlayerA.FillField();
         PlayerB.FillField();
-        Game.DrawField(PlayerA.playerField, PlayerB.fieldDraw);
+        Game.DrawField(PlayerA.playerField, PlayerB.playerField);
 
         for(int i = 4; i >= 1; i--)
         {
@@ -32,15 +32,15 @@ void GameStart()
             {
                 PlayerA.PositionPlayerShips(i, true);
                 PlayerB.PositionPlayerShips(i, true);
-                Game.DrawField(PlayerA.playerField, PlayerB.fieldDraw);
+                Game.DrawField(PlayerA.playerField, PlayerB.playerField);
             }
         }
         int count = 0;
         while(count < 100)
         {
             PlayerA.Move(PlayerB);
-            PlayerB.Move(PlayerA, true);
-            Game.DrawField(PlayerA.playerField, PlayerB.fieldDraw);
+//            PlayerB.Move(PlayerA, true);
+            Game.DrawField(PlayerA.playerField, PlayerB.playerField);
             count++;
         }
         end = true;
