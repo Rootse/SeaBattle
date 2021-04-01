@@ -107,7 +107,7 @@ void Player::PositionPlayerShips(int len, bool autoFill)
 
 bool CheckValidMove(int playerField[][SIZE_FIELD][2], int x, int y)
 {
-    if(playerField[y][x][1] == 44 && x <= 9 && x >= 0 && y <= 9 && y >= 0)
+    if(playerField[y][x][1] == 44 || playerField[y][x][1] == 42 && x <= 9 && x >= 0 && y <= 9 && y >= 0)
     {
         return true;
     }else{
@@ -122,16 +122,24 @@ void IsHit(int playerField[][SIZE_FIELD][2], int x, int y)
     bool yLeft = CheckValidMove(playerField, x, y-1);
     bool yRigth = CheckValidMove(playerField, x, y+1);
 
-    if(playerField[y][x][2] == 42)
+    if(xLeft || xRigth)
     {
-        if((!xLeft || !xRigth) &&
-           (!yLeft || !yRigth))
+        for(int i = 1; i <= 4; i++)
         {
-            playerField[y][x][0] = 31; //Text RED
-            playerField[y][x][1] = 41; //BG RED
-        }
-    }else{
+            if(xLeft && xRigth)
+            {
 
+            }
+        }
+        playerField[y][x][0] = 31; //Text RED
+        playerField[y][x][1] = 40; //BG BLACK
+    }else if(yLeft || yRigth)
+    {
+        playerField[y][x][0] = 31; //Text RED
+        playerField[y][x][1] = 40; //BG BLACK
+    }else{
+        playerField[y][x][0] = 31; //Text RED
+        playerField[y][x][1] = 41; //BG RED
     }
 }
 
