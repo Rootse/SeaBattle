@@ -1,12 +1,10 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/SeaBattle_.dir/Game.cpp.obj"
-  "CMakeFiles/SeaBattle_.dir/GameField.cpp.obj"
-  "CMakeFiles/SeaBattle_.dir/Player.cpp.obj"
-  "CMakeFiles/SeaBattle_.dir/main.cpp.obj"
-  "SeaBattle_.exe"
-  "SeaBattle_.exe.manifest"
+  "CMakeFiles/SeaBattle_.dir/Game.cpp.o"
+  "CMakeFiles/SeaBattle_.dir/GameField.cpp.o"
+  "CMakeFiles/SeaBattle_.dir/Player.cpp.o"
+  "CMakeFiles/SeaBattle_.dir/main.cpp.o"
+  "SeaBattle_"
   "SeaBattle_.pdb"
-  "libSeaBattle_.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.

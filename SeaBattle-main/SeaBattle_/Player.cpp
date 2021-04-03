@@ -105,9 +105,9 @@ void Player::PositionPlayerShips(int len, bool autoFill)
     PutShip(xy[0], xy[1], pos, len);
 }
 
-bool CheckValidMove(int playerField[][SIZE_FIELD][2], int x, int y)
+bool CheckValidMove(int pField[][SIZE_FIELD][2], int x, int y)
 {
-    if(playerField[y][x][1] == 44 || playerField[y][x][1] == 42 && x <= 9 && x >= 0 && y <= 9 && y >= 0)
+    if(pField[y][x][1] == 44 || pField[y][x][1] == 42 && x <= 9 && x >= 0 && y <= 9 && y >= 0)
     {
         return true;
     }else{
@@ -117,26 +117,51 @@ bool CheckValidMove(int playerField[][SIZE_FIELD][2], int x, int y)
 
 void IsHit(int playerField[][SIZE_FIELD][2], int x, int y)
 {
-    bool xLeft = CheckValidMove(playerField, x-1, y);
-    bool xRigth = CheckValidMove(playerField, x+1, y);
-    bool yLeft = CheckValidMove(playerField, x, y-1);
-    bool yRigth = CheckValidMove(playerField, x, y+1);
+//    bool xLeft = CheckValidMove(playerField, x-1, y);
+//    bool xRigth = CheckValidMove(playerField, x+1, y);
+//    bool yLeft = CheckValidMove(playerField, x, y-1);
+//    bool yRigth = CheckValidMove(playerField, x, y+1);
 
-    if(xLeft || xRigth)
+    if(playerField[y][x-1][1] == 42 || playerField[y][x+1][1] == 42)
     {
-        for(int i = 1; i <= 4; i++)
+        int tempX = x;
+        while(playerField[y][x-1][1] == 44)
         {
-            if(xLeft && xRigth)
+            tempX--;
+        }
+        bool dead = true;
+        while(playerField[y][x+1][1] == 44 && dead)
+        {
+            if(playerField[y][tempX][1] == 42)
             {
-
+                dead = false;
+                playerField[y][x][0] = 31; //Text RED
+                playerField[y][x][1] = 40; //BG BLACK
+            }else{
+                playerField[y][x][0] = 31; //Text RED
+                playerField[y][x][1] = 41; //BG RED
             }
         }
-        playerField[y][x][0] = 31; //Text RED
-        playerField[y][x][1] = 40; //BG BLACK
-    }else if(yLeft || yRigth)
+    }else if(playerField[y-1][x][1] == 42 || playerField[y+1][x][1] == 42)
     {
-        playerField[y][x][0] = 31; //Text RED
-        playerField[y][x][1] = 40; //BG BLACK
+        int tempY = y;
+        while(playerField[y-1][x][1] == 44)
+        {
+            tempY--;
+        }
+        bool dead = true;
+        while(playerField[y-1][x][1] == 44 && dead)
+        {
+            if(playerField[tempY][x][1] == 42)
+            {
+                dead = false;
+                playerField[y][x][0] = 31; //Text RED
+                playerField[y][x][1] = 40; //BG BLACK
+            }else{
+                playerField[y][x][0] = 31; //Text RED
+                playerField[y][x][1] = 41; //BG RED
+            }
+        }
     }else{
         playerField[y][x][0] = 31; //Text RED
         playerField[y][x][1] = 41; //BG RED
@@ -154,10 +179,15 @@ void Player::Move(Player &Player, bool a)
             GetPosition(pos);
             valid = CheckValidMove(Player.playerField, pos[0], pos[1]);
         }
-        IsHit(Player.playerField, pos[0], pos[1]);
-    }else{
-        GetPosition(pos, true);
+        if(Player.playerField[pos[0]][pos[1]][1] == 42)
+        {
+            IsHit(Player.playerField, pos[0], pos[1]);
+        }else{
+            Player.playerField[pos[0]][pos[1]][0] = 37; //Text RED
+            Player.playerField[pos[0]][pos[1]][1] = 40; //BG BLACK
+        }
+
         CheckValidMove(Player.playerField, pos[0], pos[1]);
-        playerField[pos[1]][pos[0]][1] = 40;
+        Player.playerField[pos[1]][pos[0]][1] = 40;
     }
 }
