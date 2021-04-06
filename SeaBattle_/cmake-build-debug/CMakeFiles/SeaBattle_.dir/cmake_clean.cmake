@@ -5,8 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/SeaBattle_.dir/main.cpp.obj"
   "SeaBattle_.exe"
   "SeaBattle_.exe.manifest"
+  "SeaBattle_.lib"
   "SeaBattle_.pdb"
-  "libSeaBattle_.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.

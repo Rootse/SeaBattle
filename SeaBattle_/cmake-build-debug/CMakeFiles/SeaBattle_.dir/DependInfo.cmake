@@ -4,12 +4,12 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Users/Yan/Desktop/SeaBattle-main/SeaBattle_/Game.cpp" "C:/Users/Yan/Desktop/SeaBattle-main/SeaBattle_/cmake-build-debug/CMakeFiles/SeaBattle_.dir/Game.cpp.obj"
-  "C:/Users/Yan/Desktop/SeaBattle-main/SeaBattle_/GameField.cpp" "C:/Users/Yan/Desktop/SeaBattle-main/SeaBattle_/cmake-build-debug/CMakeFiles/SeaBattle_.dir/GameField.cpp.obj"
-  "C:/Users/Yan/Desktop/SeaBattle-main/SeaBattle_/Player.cpp" "C:/Users/Yan/Desktop/SeaBattle-main/SeaBattle_/cmake-build-debug/CMakeFiles/SeaBattle_.dir/Player.cpp.obj"
-  "C:/Users/Yan/Desktop/SeaBattle-main/SeaBattle_/main.cpp" "C:/Users/Yan/Desktop/SeaBattle-main/SeaBattle_/cmake-build-debug/CMakeFiles/SeaBattle_.dir/main.cpp.obj"
+  "F:/Battle/SeaBattle-main/SeaBattle-main/SeaBattle_/Game.cpp" "F:/Battle/SeaBattle-main/SeaBattle-main/SeaBattle_/cmake-build-debug/CMakeFiles/SeaBattle_.dir/Game.cpp.obj"
+  "F:/Battle/SeaBattle-main/SeaBattle-main/SeaBattle_/GameField.cpp" "F:/Battle/SeaBattle-main/SeaBattle-main/SeaBattle_/cmake-build-debug/CMakeFiles/SeaBattle_.dir/GameField.cpp.obj"
+  "F:/Battle/SeaBattle-main/SeaBattle-main/SeaBattle_/Player.cpp" "F:/Battle/SeaBattle-main/SeaBattle-main/SeaBattle_/cmake-build-debug/CMakeFiles/SeaBattle_.dir/Player.cpp.obj"
+  "F:/Battle/SeaBattle-main/SeaBattle-main/SeaBattle_/main.cpp" "F:/Battle/SeaBattle-main/SeaBattle-main/SeaBattle_/cmake-build-debug/CMakeFiles/SeaBattle_.dir/main.cpp.obj"
   )
-set(CMAKE_CXX_COMPILER_ID "GNU")
+set(CMAKE_CXX_COMPILER_ID "MSVC")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH

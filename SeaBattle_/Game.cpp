@@ -44,7 +44,7 @@ void GameStart()
         while(count < 100)
         {
             PlayerA.Move(PlayerB);
-//            PlayerB.Move(PlayerA, true);
+            PlayerB.Move(PlayerA, true);
             Game.DrawField(PlayerA.playerField, PlayerB.playerField);
             count++;
         }
