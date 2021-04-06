@@ -10,7 +10,7 @@ void Player::FillField()
         {
             playerField[i][j][0] = 37;
             playerField[i][j][1] = 44;
-            ships[i][j] = 0;
+            ships[i][j] = -1;
         }
     }
 }
@@ -25,7 +25,7 @@ void Player::PutShip(int x, int y, bool pos, int len)
         ships[count][i * 2 + 1] = y;
         (pos) ? x++ : y++;
     }
-    ships[count][9] = len + 1;
+    ships[count][9] = len;
     ships[count][8] = 0;
     count++;
 }
@@ -123,7 +123,7 @@ bool CheckValidMove(int playerField[][SIZE_FIELD][2], int x, int y)
 
 void ReplaceColorShip(Player &Player, int nShip)
 {
-    for(int i = 0; i < 4; i += 2)
+    for(int i = 0; i < 8; i += 2)
     {
         Player.playerField[Player.ships[nShip][i+1]][Player.ships[nShip][i]][1] = 41;
     }
@@ -131,23 +131,27 @@ void ReplaceColorShip(Player &Player, int nShip)
 
 void IsDeadShip(Player &Player, int x, int y)
 {
+    int text, bg;
     for(int i = 0; i < SIZE_FIELD; i++)
     {
         for(int j = 0; j < 8; j += 2)
         {
-            bool isShip = Player.ships[i][j] == x && Player.ships[i][j+1] == y;
-            if(isShip && Player.ships[i][9] == Player.ships[i][8])
+            if(Player.ships[i][j] == x && Player.ships[i][j+1] == y)
             {
-                ReplaceColorShip(Player, i);
-                Player.playerField[y][x][1] = 41; //BG RED
-            }else if(isShip){
                 Player.ships[i][8]++;
-                Player.playerField[y][x][1] = 47; //BG WHITE
-            }else{
-                Player.playerField[y][x][1] = 47; //BG WHITE
+                text = 33;      //Text YELLOW
+                if(Player.ships[i][8] == Player.ships[i][9])
+                {
+                    ReplaceColorShip(Player, i);
+                    bg = 41;    //BG RED
+                }else{
+                    bg = 47;    //BG RED
+                }
             }
         }
     }
+    Player.playerField[y][x][0] = text;
+    Player.playerField[y][x][1] = bg;
 }
 
 void Player::Move(Player &Player, bool a)
