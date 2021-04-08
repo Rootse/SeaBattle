@@ -85,6 +85,20 @@ void GetPosition(int pos[], bool a = false)
     }
 }
 
+void MovePC(int pos[])
+{
+    int random = 3 * (rand() % 3);
+
+    if(random > 10)
+    {
+        pos[0] = random / 10;
+        pos[1] = random % 10;
+    }else{
+        pos[0] = 0;
+        pos[1] = random;
+    }
+}
+
 void Player::PositionPlayerShips(int len, bool autoFill)
 {
     int xy[SIZE_XY];
@@ -180,7 +194,7 @@ void Player::Move(Player& Player, bool a)
     }
     else {
         while (!valid) {
-            GetPosition(pos, true);
+            MovePC(pos);
             valid = CheckValidMove(Player.playerField, pos[0], pos[1]);
         }
         IsDeadShip(Player, pos[0], pos[1]);
