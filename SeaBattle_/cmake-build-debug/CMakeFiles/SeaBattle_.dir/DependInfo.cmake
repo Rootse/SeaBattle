@@ -4,10 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Users/Yan/Desktop/SeaBattle-main/SeaBattle_/Game.cpp" "C:/Users/Yan/Desktop/SeaBattle-main/SeaBattle_/cmake-build-debug/CMakeFiles/SeaBattle_.dir/Game.cpp.obj"
-  "C:/Users/Yan/Desktop/SeaBattle-main/SeaBattle_/GameField.cpp" "C:/Users/Yan/Desktop/SeaBattle-main/SeaBattle_/cmake-build-debug/CMakeFiles/SeaBattle_.dir/GameField.cpp.obj"
-  "C:/Users/Yan/Desktop/SeaBattle-main/SeaBattle_/Player.cpp" "C:/Users/Yan/Desktop/SeaBattle-main/SeaBattle_/cmake-build-debug/CMakeFiles/SeaBattle_.dir/Player.cpp.obj"
-  "C:/Users/Yan/Desktop/SeaBattle-main/SeaBattle_/main.cpp" "C:/Users/Yan/Desktop/SeaBattle-main/SeaBattle_/cmake-build-debug/CMakeFiles/SeaBattle_.dir/main.cpp.obj"
+  "/home/yan/CLionProjects/SeaBattle_/Game.cpp" "/home/yan/CLionProjects/SeaBattle_/cmake-build-debug/CMakeFiles/SeaBattle_.dir/Game.cpp.o"
+  "/home/yan/CLionProjects/SeaBattle_/GameField.cpp" "/home/yan/CLionProjects/SeaBattle_/cmake-build-debug/CMakeFiles/SeaBattle_.dir/GameField.cpp.o"
+  "/home/yan/CLionProjects/SeaBattle_/Player.cpp" "/home/yan/CLionProjects/SeaBattle_/cmake-build-debug/CMakeFiles/SeaBattle_.dir/Player.cpp.o"
+  "/home/yan/CLionProjects/SeaBattle_/main.cpp" "/home/yan/CLionProjects/SeaBattle_/cmake-build-debug/CMakeFiles/SeaBattle_.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

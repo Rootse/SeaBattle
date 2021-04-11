@@ -1,7 +1,5 @@
 #include "Player.h"
 
-#define SIZE_XY 2
-
 void Player::FillField()
 {
     for (int i = 0; i < SIZE_FIELD; i++)
@@ -19,7 +17,6 @@ void Player::PutShip(int x, int y, bool pos, int len)
 {
     for (int i = 0; i < len; i++)
     {
-        playerField[y][x][0] = 37;
         playerField[y][x][1] = 42;
         ships[count][i * 2] = x;
         ships[count][i * 2 + 1] = y;
@@ -66,42 +63,35 @@ bool Player::CheckValidPos(int x, int y, bool pos, int len, bool autoFill)
     return true;
 }
 
-void GetPosition(int pos[], bool a = false)
+void GetPosition(int &x, int &y, bool a = false)
 {
-    if (!a)
+    if(a) {
+        x = rand() % 10;
+        y = rand() % 10;
+    }else
     {
-        char xSym = 'A';
-        cin >> xSym;
-        cin.ignore(1);
-        cin >> pos[1];
-        cin.ignore(32767, '\n');
+        while(true)
+        {
+            cout << "\nВведите координаты для выстрела(A-J | 0-9): ";
+            char xSym = 'A';
+            cin >> xSym;
 
-        xSym = toupper(xSym);
-        pos[0] = (int)(xSym - 65);
-    }
-    else {
-        pos[0] = rand() % 10;
-        pos[1] = rand() % 10;
-    }
-}
-
-void MovePC(int pos[])
-{
-    int random = 3 * (rand() % 3);
-
-    if(random > 10)
-    {
-        pos[0] = random / 10;
-        pos[1] = random % 10;
-    }else{
-        pos[0] = 0;
-        pos[1] = random;
+            cin.ignore(1);
+            cin >> y;
+            cin.ignore(32767, '\n');
+            xSym = toupper(xSym);
+            x = (int)(xSym - 65);
+            if(x >= 0 && x <= 9 && y >= 0 && y <= 9)
+            {
+                break;
+            }
+        }
     }
 }
 
 void Player::PositionPlayerShips(int len, bool autoFill)
 {
-    int xy[SIZE_XY];
+    int x, y;
     bool pos;
     bool valid = false;
     while (!valid)
@@ -111,92 +101,153 @@ void Player::PositionPlayerShips(int len, bool autoFill)
             string dot;
             (len == 1) ? dot = " точки " : dot = " точек ";
             cout << "\nВведите позицию коробля из " << len << dot << "(A-J | 0-9 | 0 - вериткально, 1 - горизонтально): ";
-            GetPosition(xy);
+            GetPosition(x, y);
             cin >> pos;
             cin.ignore(32767, '\n');
         }
         else {
-            GetPosition(xy, true);
+            GetPosition(x, y, true);
             pos = rand() % 2;
         }
 
-        if (xy[0] > 9 || xy[0] < 0 || xy[1] > 9 || xy[1] < 0) {
+        if (x > 9 || x < 0 || y > 9 || y < 0) {
             valid = false;
             continue;
         }
-        valid = CheckValidPos(xy[0], xy[1], pos, len, autoFill);
+        valid = CheckValidPos(x, y, pos, len, autoFill);
     }
-    PutShip(xy[0], xy[1], pos, len);
-}
-
-bool CheckValidMove(int playerField[][SIZE_FIELD][2], int x, int y)
-{
-    if (playerField[y][x][1] == 44 || playerField[y][x][1] == 42 && x <= 9 && x >= 0 && y <= 9 && y >= 0)
-    {
-        return true;
-    }
-    else {
-        return false;
-    }
+    PutShip(x, y, pos, len);
 }
 
 void ReplaceColorShip(Player& Player, int nShip)
 {
-    for (int i = 0; i < 8; i += 2)
+    for (int i = 0; i < 8 && Player.ships[nShip][i] != -1; i += 2)
     {
-        //        Player.playerField[Player.ships[nShip][i+1]+1][Player.ships[nShip][i]][1] = 46;
-        //        Player.playerField[Player.ships[nShip][i+1]-1][Player.ships[nShip][i]][1] = 46;
-        //        Player.playerField[Player.ships[nShip][i+1]][Player.ships[nShip][i]+1][1] = 46;
-        //        Player.playerField[Player.ships[nShip][i+1]+1][Player.ships[nShip][i]-1][1] = 46;
-        Player.playerField[Player.ships[nShip][i + 1]][Player.ships[nShip][i]][1] = 41;
-
+        int x = Player.ships[nShip][i];
+        int y = Player.ships[nShip][i+1];
+        //        Player.playerField[y+1][x][1] = 46;
+        //        Player.playerField[y-1][x][1] = 46;
+        //        Player.playerField[y][x+1][1] = 46;
+        //        Player.playerField[y+1][x-1][1] = 46;
+        Player.playerField[x][y][1] = 41;
+        Player.playerField[x][y][0] = 33;
     }
 }
 
-void IsDeadShip(Player& Player, int x, int y)
+int FindShip(Player &Player, int x, int y)
 {
-    int text = 0, bg = 0;
     for (int i = 0; i < SIZE_FIELD; i++)
     {
         for (int j = 0; j < 8; j += 2)
         {
+            if(Player.ships[i][j] == x && Player.ships[i][j + 1] == y)
+            {
+                return i;
+            }
+        }
+    }
+    return -1;
+}
+
+void IsDeadShip(Player& Player, int x, int y)
+{
+    int text = 37, bg = 0;
+    bool end = false;
+    int i = FindShip(Player, x ,y);
+    if(i != -1)
+    {
+        for (int j = 0; j < 8 && !end; j += 2)
+        {
             if (Player.ships[i][j] == x && Player.ships[i][j + 1] == y)
             {
-                Player.ships[i][8]++;
+                Player.ships[i][8] += 1;
                 text = 33;      //Text YELLOW
                 if (Player.ships[i][8] == Player.ships[i][9])
                 {
                     ReplaceColorShip(Player, i);
-                    bg = 41;    //BG RED
+                    end = true;
+                }else{
+                    bg = 47;
                 }
-                else {
-                    bg = 47;    //BG RED
-                }
+                break;
             }
         }
     }
-    Player.playerField[y][x][0] = text;
-    Player.playerField[y][x][1] = bg;
+    if(!end)
+    {
+        Player.playerField[y][x][0] = text;
+        Player.playerField[y][x][1] = bg;
+    }
+}
+
+void Player::MovePC(Player &Player, int &x, int &y)
+{
+    int hor = 0;
+    int vert = 0;
+    if(Player::mode == 0)
+    {
+        while(true)
+        {
+            y = rand() % 10;
+            int t = 3 - (y % 4);
+            x = t + 1 + 4 * (rand() % 2);
+            tX = x;
+            tY = y;
+            if(Player.playerField[y][x][1] == 42 || Player.playerField[y][x][1] == 44)
+            {
+                break;
+            }
+        }
+    }else{
+        while(true)
+        {
+//            x = tX;
+//            y = tY;
+            (checkShip == 0) ? hor = -temp : (checkShip == 1) ? hor = temp :(checkShip == 2) ? vert = -temp : vert = temp;
+            x = tX + hor;
+            y = tY + vert;
+            if(Player.playerField[y][x][1] != 42)
+            {
+                checkShip++;
+                if(Player.playerField[y][x][1] != 44)
+                {
+                    continue;
+                }
+            }else if(Player.playerField[y][x][1] == 42)
+            {
+                tX = x;
+                tY = y;
+                int i = FindShip(Player, x, y);
+                temp = Player.ships[i][8];
+            }
+            break;
+        }
+    }
 }
 
 void Player::Move(Player& Player, bool a)
 {
-    int pos[SIZE_XY];
-    bool valid = false;
+    int x, y;
     if (!a)
     {
-        while (!valid) {
-            cout << "\nВведите координаты для выстрела(A-J | 0-9): ";
-            GetPosition(pos);
-            valid = CheckValidMove(Player.playerField, pos[0], pos[1]);
+        while (true) {
+            GetPosition(x, y);
+            if (Player.playerField[y][x][1] == 42 || Player.playerField[y][x][1] == 44) {
+                break;
+            }
         }
-        IsDeadShip(Player, pos[0], pos[1]);
+        IsDeadShip(Player, x, y);
     }
     else {
-        while (!valid) {
-            MovePC(pos);
-            valid = CheckValidMove(Player.playerField, pos[0], pos[1]);
+        MovePC(Player, x, y);
+        IsDeadShip(Player, x, y);
+        if(Player.playerField[y][x][0] == 33)
+        {
+            mode = 1;
+        }else if(Player.playerField[tY][tX][1] == 41)
+        {
+            checkShip = 0;
+            mode = 0;
         }
-        IsDeadShip(Player, pos[0], pos[1]);
     }
 }

@@ -19,7 +19,7 @@ class GameField
 private:
 
 public:
-    void DrawField(int PlayerA[][SIZE_FIELD][2], int PlayerB[][SIZE_FIELD][2]);
+    static void DrawField(int PlayerA[][SIZE_FIELD][2], int PlayerB[][SIZE_FIELD][2]);
 
 };
 

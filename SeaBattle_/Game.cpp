@@ -24,20 +24,15 @@ void GameStart()
     {
         PlayerA.FillField();
         PlayerB.FillField();
-        Game.DrawField(PlayerA.playerField, PlayerB.playerField);
+        GameField::DrawField(PlayerA.playerField, PlayerB.playerField);
 
         for(int i = 4; i >= 1; i--)
         {
             for(int j = i; j != 5; j++)
             {
                 PlayerA.PositionPlayerShips(i, true);
-//                for(int i = 0; i < 10; i++){
-//                    for(int j = 0; j < 10; j++){
-//                        cout << PlayerA.ships[i][j] << " ";
-//                    }
-//                }
                 PlayerB.PositionPlayerShips(i, true);
-                Game.DrawField(PlayerA.playerField, PlayerB.playerField);
+                GameField::DrawField(PlayerA.playerField, PlayerB.playerField);
             }
         }
         int count = 0;
@@ -45,7 +40,7 @@ void GameStart()
         {
             PlayerA.Move(PlayerB);
             PlayerB.Move(PlayerA, true);
-            Game.DrawField(PlayerA.playerField, PlayerB.playerField);
+            GameField::DrawField(PlayerA.playerField, PlayerB.playerField);
             count++;
         }
         end = true;

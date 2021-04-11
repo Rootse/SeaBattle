@@ -1,6 +1,6 @@
 
 #ifndef SEABATTLE__GAME_H
-#define SEABATTLE__GAME_H
+#define SEABATTLE_GAME_H
 
 #include "GameField.h"
 #include "Player.h"
