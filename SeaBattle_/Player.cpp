@@ -121,14 +121,22 @@ void Player::PositionPlayerShips(int len, bool autoFill)
 
 void ReplaceColorShip(Player& Player, int nShip)
 {
+    int a;
     for (int i = 0; i < 8 && Player.ships[nShip][i] != -1; i += 2)
     {
         int x = Player.ships[nShip][i];
         int y = Player.ships[nShip][i+1];
-        //        Player.playerField[y+1][x][1] = 46;
-        //        Player.playerField[y-1][x][1] = 46;
-        //        Player.playerField[y][x+1][1] = 46;
-        //        Player.playerField[y+1][x-1][1] = 46;
+        bool xy = x >= 0 && x <= 9 && y >= 0 && y <= 9;
+
+        (Player.playerField[y+1][x][1] == 44 && xy) ? Player.playerField[y+1][x][1] = 46 : a = 0;
+        (Player.playerField[y+1][x+1][1] == 44 && xy) ? Player.playerField[y+1][x+1][1] = 46 : a = 0;
+        (Player.playerField[y+1][x-1][1] == 44 && xy) ? Player.playerField[y+1][x-1][1] = 46 : a = 0;
+        (Player.playerField[y-1][x][1] == 44 && xy) ? Player.playerField[y-1][x][1] = 46 : a = 0;
+        (Player.playerField[y-1][x-1][1] == 44 && xy) ? Player.playerField[y-1][x-1][1] = 46 : a = 0;
+        (Player.playerField[y-1][x+1][1] == 44 && xy) ? Player.playerField[y-1][x+1][1] = 46 : a = 0;
+        (Player.playerField[y][x+1][1] == 44 && xy) ? Player.playerField[y][x+1][1] = 46 : a = 0;
+        (Player.playerField[y][x-1][1] == 44 && xy) ? Player.playerField[y][x-1][1] = 46 : a = 0;
+
         Player.playerField[y][x][1] = 41;
         Player.playerField[y][x][0] = 33;
     }
