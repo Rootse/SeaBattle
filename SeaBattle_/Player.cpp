@@ -129,8 +129,8 @@ void ReplaceColorShip(Player& Player, int nShip)
         //        Player.playerField[y-1][x][1] = 46;
         //        Player.playerField[y][x+1][1] = 46;
         //        Player.playerField[y+1][x-1][1] = 46;
-        Player.playerField[x][y][1] = 41;
-        Player.playerField[x][y][0] = 33;
+        Player.playerField[y][x][1] = 41;
+        Player.playerField[y][x][0] = 33;
     }
 }
 
@@ -201,8 +201,6 @@ void Player::MovePC(Player &Player, int &x, int &y)
     }else{
         while(true)
         {
-//            x = tX;
-//            y = tY;
             (checkShip == 0) ? hor = -temp : (checkShip == 1) ? hor = temp :(checkShip == 2) ? vert = -temp : vert = temp;
             x = tX + hor;
             y = tY + vert;
@@ -241,7 +239,7 @@ void Player::Move(Player& Player, bool a)
     else {
         MovePC(Player, x, y);
         IsDeadShip(Player, x, y);
-        if(Player.playerField[y][x][0] == 33)
+        if(Player.playerField[y][x][0] == 33 && Player.playerField[y][x][1] != 41)
         {
             mode = 1;
         }else if(Player.playerField[tY][tX][1] == 41)

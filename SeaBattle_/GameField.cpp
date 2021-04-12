@@ -2,8 +2,8 @@
 
 
 void GameField::DrawField(int PlayerA[][SIZE_FIELD][2], int PlayerB[][SIZE_FIELD][2]) {
-    system("clear");
-//    system("cls");
+//    system("clear");
+    system("cls");
     for (int i = 0; i < SIZE_FIELD * 2; i++) {
         char sym = (char) (i + 65);
         if (i != 0 && i % SIZE_FIELD == 0) {
