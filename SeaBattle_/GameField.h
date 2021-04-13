@@ -6,7 +6,7 @@
 #include <cstdlib>
 #include "Player.h"
 
-#define CELL(a, b) printf("\x1b[1;%d;%dm o \x1b[0m", (a), (b))
+#define CELL(a, b) printf("\x1b[1;%d;%dm * \x1b[0m", (a), (b))
 #define EndStr cout << "\n";
 #define SIZE_FIELD 12
 

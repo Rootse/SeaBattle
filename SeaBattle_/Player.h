@@ -16,7 +16,7 @@ private:
     int count = 0;
 public:
     int playerField[SIZE_FIELD][SIZE_FIELD][2]{};
-    int ships[SIZE_FIELD][SIZE_FIELD]{};
+    int ships[SIZE_FIELD - 2][SIZE_FIELD - 2]{};
     void FillField();
     void PositionPlayerShips(int len, bool autoFill);
     void Move(Player &Player, bool a = false);
