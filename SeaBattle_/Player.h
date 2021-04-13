@@ -3,7 +3,7 @@
 
 #include "GameField.h"
 
-#define SIZE_FIELD 10
+#define SIZE_FIELD 12
 
 class Player{
 private:
