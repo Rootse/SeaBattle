@@ -126,16 +126,16 @@ void ReplaceColorShip(Player& Player, int nShip)
     {
         int x = Player.ships[nShip][i];
         int y = Player.ships[nShip][i+1];
-        bool xy = x >= 0 && x <= 9 && y >= 0 && y <= 9;
+        bool xy = x < 0 || x > 9 || y < 0 || y > 9;
 
-        (Player.playerField[y+1][x][1] == 44 && xy) ? Player.playerField[y+1][x][1] = 46 : a = 0;
-        (Player.playerField[y+1][x+1][1] == 44 && xy) ? Player.playerField[y+1][x+1][1] = 46 : a = 0;
-        (Player.playerField[y+1][x-1][1] == 44 && xy) ? Player.playerField[y+1][x-1][1] = 46 : a = 0;
-        (Player.playerField[y-1][x][1] == 44 && xy) ? Player.playerField[y-1][x][1] = 46 : a = 0;
-        (Player.playerField[y-1][x-1][1] == 44 && xy) ? Player.playerField[y-1][x-1][1] = 46 : a = 0;
-        (Player.playerField[y-1][x+1][1] == 44 && xy) ? Player.playerField[y-1][x+1][1] = 46 : a = 0;
-        (Player.playerField[y][x+1][1] == 44 && xy) ? Player.playerField[y][x+1][1] = 46 : a = 0;
-        (Player.playerField[y][x-1][1] == 44 && xy) ? Player.playerField[y][x-1][1] = 46 : a = 0;
+        (Player.playerField[y+1][x][1] == 44 && !xy) ? Player.playerField[y+1][x][1] = 46 : a = 0;
+        (Player.playerField[y+1][x+1][1] == 44 && !xy) ? Player.playerField[y+1][x+1][1] = 46 : a = 0;
+        (Player.playerField[y+1][x-1][1] == 44 && !xy) ? Player.playerField[y+1][x-1][1] = 46 : a = 0;
+        (Player.playerField[y-1][x][1] == 44 && !xy) ? Player.playerField[y-1][x][1] = 46 : a = 0;
+        (Player.playerField[y-1][x-1][1] == 44 && !xy) ? Player.playerField[y-1][x-1][1] = 46 : a = 0;
+        (Player.playerField[y-1][x+1][1] == 44 && !xy) ? Player.playerField[y-1][x+1][1] = 46 : a = 0;
+        (Player.playerField[y][x+1][1] == 44 && !xy) ? Player.playerField[y][x+1][1] = 46 : a = 0;
+        (Player.playerField[y][x-1][1] == 44 && !xy) ? Player.playerField[y][x-1][1] = 46 : a = 0;
 
         Player.playerField[y][x][1] = 41;
         Player.playerField[y][x][0] = 33;
@@ -188,24 +188,40 @@ void IsDeadShip(Player& Player, int x, int y)
     }
 }
 
+void OutPos(Player &Player, int &x, int &y, int &tX, int &tY)
+{
+    while(true) {
+        y = rand() % 10;
+        int indent, t;
+        if(Player.ships[1][8] == Player.ships[1][9] && Player.ships[2][8] == Player.ships[2][9])
+        {
+            y = rand() % 10;
+            x = rand() % 10;
+        }else if(Player.ships[0][8] == Player.ships[0][9]){
+            int r = 1 + rand() % 3;
+            (r == 1) ? indent = 3 : indent = 1;
+            t = indent - (y % 4);
+            x = t + 1 + 4 * (rand() % 2);
+        }else{
+            indent = 3;
+            t = indent - (y % 4);
+            x = t + 1 + 4 * (rand() % 2);
+        }
+        tX = x;
+        tY = y;
+        if (Player.playerField[y][x][1] == 42 || Player.playerField[y][x][1] == 44) {
+            break;
+        }
+    }
+}
+
 void Player::MovePC(Player &Player, int &x, int &y)
 {
     int hor = 0;
     int vert = 0;
     if(Player::mode == 0)
     {
-        while(true)
-        {
-            y = rand() % 10;
-            int t = 3 - (y % 4);
-            x = t + 1 + 4 * (rand() % 2);
-            tX = x;
-            tY = y;
-            if(Player.playerField[y][x][1] == 42 || Player.playerField[y][x][1] == 44)
-            {
-                break;
-            }
-        }
+        OutPos(Player, x, y, tX, tY);
     }else{
         while(true)
         {
@@ -215,16 +231,20 @@ void Player::MovePC(Player &Player, int &x, int &y)
             if(Player.playerField[y][x][1] != 42)
             {
                 checkShip++;
-                if(Player.playerField[y][x][1] != 44)
+                if(Player.playerField[tY][tX][1] == 42)
+                {
+                    int i = FindShip(Player, tX, tY);
+                    temp = Player.ships[i][8];
+                }
+                bool xy = x > 9 || x < 0 || y > 9 || y < 0;
+                if(Player.playerField[y][x][1] != 44 || !xy)
                 {
                     continue;
                 }
-            }else if(Player.playerField[y][x][1] == 42)
-            {
+            }else if(Player.playerField[y][x][1] == 42){
                 tX = x;
                 tY = y;
-                int i = FindShip(Player, x, y);
-                temp = Player.ships[i][8];
+
             }
             break;
         }
