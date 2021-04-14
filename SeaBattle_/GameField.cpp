@@ -25,13 +25,13 @@ void GameField::DrawField(int PlayerA[][SIZE_FIELD][2], int PlayerB[][SIZE_FIELD
             if(j != 0 && j % SIZE_FIELD == 0){
                 (i == 0 || i == 11) ? cout << setw(4) << " ": cout << setw(3) << i << " ";
             }
-            if(j >= SIZE_FIELD && PlayerB[i][j - SIZE_FIELD][1] != 44 && PlayerB[i][j - SIZE_FIELD][1] != 42)
+            if(j >= SIZE_FIELD && PlayerB[i][j - SIZE_FIELD][1] != BG_BLUE && PlayerB[i][j - SIZE_FIELD][1] != BG_GREEN)
             {
                 CELL(PlayerB[i][j - SIZE_FIELD][0], PlayerB[i][j - SIZE_FIELD][1]);
             }else if(j < SIZE_FIELD){
                 CELL(PlayerA[i][j][0], PlayerA[i][j][1]);
             }else{
-                CELL(37, 44);
+                CELL(T_WHITE, BG_BLUE);
             }
         }
         EndStr;
