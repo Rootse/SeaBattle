@@ -8,6 +8,8 @@
 
 #define BG_BLUE 44
 #define BG_GREEN 42
+#define BG_RED 41
+#define BG_WHITE 47
 #define BG_BLACK 0
 #define T_WHITE 37
 #define T_YELLOW 33

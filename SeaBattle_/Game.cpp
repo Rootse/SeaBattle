@@ -38,10 +38,21 @@ void GameStart()
         int count = 0;
         while(count < 100)
         {
-            PlayerA.Move(PlayerB);
-            PlayerB.Move(PlayerA, true);
-            GameField::DrawField(PlayerA.playerField, PlayerB.playerField);
-            count++;
+            bool isHit = false;
+            do
+            {
+                isHit = PlayerA.Move(PlayerB);
+                GameField::DrawField(PlayerA.playerField, PlayerB.playerField);
+                count++;
+            }while(isHit);
+            do
+            {
+                PlayerB.Move(PlayerA, true);
+                GameField::DrawField(PlayerA.playerField, PlayerB.playerField);
+                count++;
+            }while(isHit);
+
+
         }
         end = true;
     }

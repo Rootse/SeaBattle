@@ -230,8 +230,6 @@ void OutPos(Player& Player, int& x, int& y, int& tX, int& tY)
 
 void Player::MovePC(Player& Player, int& x, int& y)
 {
-    int hor = 0;
-    int vert = 0;
     if (Player::mode == 0)
     {
         OutPos(Player, x, y, tX, tY);
@@ -239,17 +237,20 @@ void Player::MovePC(Player& Player, int& x, int& y)
     else {
         while (true)
         {
+            int hor = 0;
+            int vert = 0;
             (checkShip == 0) ? hor = -temp : (checkShip == 1) ? hor = temp : (checkShip == 2) ? vert = -temp : vert = temp;
             x = tX + hor;
             y = tY + vert;
             if (Player.playerField[y][x][1] != BG_GREEN)
             {
                 checkShip++;
-                if (Player.playerField[y][x][1] != BG_BLUE)
+                bool xy = x >= 1 && x <= 10 && y >= 1 && y <= 10;
+                if (Player.playerField[y][x][1] != BG_BLUE || xy)
                 {
                     continue;
                 }
-                if (Player.playerField[tY][tX][1] == BG_GREEN)
+                if (Player.playerField[tY][tX][0] == T_YELLOW)
                 {
                     int i = FindShip(Player, tX, tY);
                     temp = Player.ships[i][8];
@@ -258,13 +259,15 @@ void Player::MovePC(Player& Player, int& x, int& y)
             }else if (Player.playerField[y][x][1] == BG_GREEN) {
                 tX = x;
                 tY = y;
+                temp = 1;
             }
+            checkShip = 0;
             break;
         }
     }
 }
 
-void Player::Move(Player& Player, bool a)
+bool Player::Move(Player& Player, bool a)
 {
     int x, y;
     if (!a)
@@ -284,10 +287,14 @@ void Player::Move(Player& Player, bool a)
         {
             mode = 1;
         }
-        else if (Player.playerField[tY][tX][1] == 41)
+        else if (Player.playerField[tY][tX][1] == BG_RED)
         {
             checkShip = 0;
             mode = 0;
         }
     }
+    if(Player.playerField[y][x][1] == BG_WHITE || Player.playerField[y][x][1] == BG_RED){
+        return true;
+    }
+    return false;
 }

@@ -19,7 +19,7 @@ public:
     int ships[SIZE_FIELD - 2][SIZE_FIELD - 2]{};
     void FillField();
     void PositionPlayerShips(int len, bool autoFill);
-    void Move(Player &Player, bool a = false);
+    bool Move(Player &Player, bool a = false);
 
     void MovePC(Player &Player, int &x, int &y);
 
