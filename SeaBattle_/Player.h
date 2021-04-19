@@ -4,6 +4,7 @@
 #include "GameField.h"
 
 #define SIZE_FIELD 12
+#define SIZE_SHIPS 10
 
 class Player{
 private:
@@ -12,11 +13,10 @@ private:
     int tX, tY, temp = 1;
     int checkShip = 0;
     int mode = 0;
-
-    int count = 0;
+    unsigned short ship = 0;
 public:
     int playerField[SIZE_FIELD][SIZE_FIELD][2]{};
-    int ships[SIZE_FIELD - 2][SIZE_FIELD - 2]{};
+    int ships[SIZE_SHIPS][SIZE_SHIPS]{};
     void FillField();
     void PositionPlayerShips(int len, bool autoFill);
     bool Move(Player &Player, bool a = false);

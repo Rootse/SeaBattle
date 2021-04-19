@@ -27,13 +27,13 @@ void Player::PutShip(int x, int y, bool pos, int len)
     for (int i = 0; i < len; i++)
     {
         playerField[y][x][1] = BG_GREEN;
-        ships[count][i * 2] = x;
-        ships[count][i * 2 + 1] = y;
+        ships[ship][i * 2] = x;
+        ships[ship][i * 2 + 1] = y;
         (pos) ? x++ : y++;
     }
-    ships[count][9] = len;
-    ships[count][8] = 0;
-    count++;
+    ships[ship][9] = len;
+    ships[ship][8] = 0;
+    temp++;
 }
 
 bool Player::CheckValidPos(int x, int y, bool pos, int len, bool autoFill)
@@ -154,7 +154,7 @@ void ReplaceColorShip(Player& Player, int nShip)
 
 int FindShip(Player& Player, int x, int y)
 {
-    for (int i = 0; i < SIZE_FIELD - 2; i++)
+    for (int i = 0; i < SIZE_SHIPS; i++)
     {
         for (int j = 0; j < 8; j += 2)
         {
@@ -293,8 +293,8 @@ bool Player::Move(Player& Player, bool a)
             mode = 0;
         }
     }
-    if(Player.playerField[y][x][1] == BG_WHITE || Player.playerField[y][x][1] == BG_RED){
-        return true;
-    }
-    return false;
+//    if(Player.playerField[y][x][1] == BG_WHITE || Player.playerField[y][x][1] == BG_RED){
+//        return true;
+//    }
+//    return false;
 }

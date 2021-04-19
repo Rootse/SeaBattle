@@ -24,7 +24,8 @@ class GameField
 private:
 
 public:
-    static void DrawField(int PlayerA[][SIZE_FIELD][2], int PlayerB[][SIZE_FIELD][2]);
+    unsigned short int count = 0;
+    static void DrawField(int PlayerA[][SIZE_FIELD][2], int PlayerB[][SIZE_FIELD][2], int A, int B);
 };
 
 #endif // SEABATTLE_GAMEFIELD_H

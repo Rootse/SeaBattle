@@ -13,6 +13,34 @@ void Battle(GameField G)
     }
 }
 
+bool CheckShipsPlayer(Player &player)
+{
+    unsigned short temp = 0;
+    for(int i = 0; i < 10; i++)
+    {
+        if(player.ships[i][8] == player.ships[i][9]){
+            temp++;
+        }
+    }
+    if(temp == 10)
+    {
+        return true;
+    }else{
+        return false;
+    }
+}
+
+int CheckWin(Player &PlayerA, Player &PlayerB)
+{
+    if(CheckShipsPlayer(PlayerA))
+    {
+        return 1;
+    }else if(CheckShipsPlayer(PlayerB)){
+        return 2;
+    }
+    return 0;
+}
+
 void GameStart()
 {
     GameField Game;
@@ -22,9 +50,11 @@ void GameStart()
     bool end = false;
     while(!end)
     {
+        unsigned short scoreA = 0;
+        unsigned short scoreB = 0;
         PlayerA.FillField();
         PlayerB.FillField();
-        GameField::DrawField(PlayerA.playerField, PlayerB.playerField);
+        GameField::DrawField(PlayerA.playerField, PlayerB.playerField, scoreA, scoreB);
 
         for(int i = 4; i >= 1; i--)
         {
@@ -32,27 +62,37 @@ void GameStart()
             {
                 PlayerA.PositionPlayerShips(i, true);
                 PlayerB.PositionPlayerShips(i, true);
-                GameField::DrawField(PlayerA.playerField, PlayerB.playerField);
+                GameField::DrawField(PlayerA.playerField, PlayerB.playerField, scoreA, scoreB);
             }
         }
-        int count = 0;
-        while(count < 100)
+        while(Game.count < 100)
         {
-            bool isHit = false;
-            do
-            {
-                isHit = PlayerA.Move(PlayerB);
-                GameField::DrawField(PlayerA.playerField, PlayerB.playerField);
-                count++;
-            }while(isHit);
-            do
-            {
+//            bool isHit = false;
+//            do
+//            {
+                PlayerA.Move(PlayerB);
+                GameField::DrawField(PlayerA.playerField, PlayerB.playerField, scoreA, scoreB);
+                Game.count++;
+//            }while(isHit);
+//            do
+//            {
                 PlayerB.Move(PlayerA, true);
-                GameField::DrawField(PlayerA.playerField, PlayerB.playerField);
-                count++;
-            }while(isHit);
-
-
+                GameField::DrawField(PlayerA.playerField, PlayerB.playerField, scoreA, scoreB);
+                Game.count++;
+//            }while(isHit);
+            unsigned short temp;
+            if(Game.count > 20)
+            {
+                temp = CheckWin(PlayerA, PlayerB);
+            }
+            if(temp == 1)
+            {
+                scoreA++;
+                break;
+            }else if(temp == 2){
+                scoreB++;
+                break;
+            }
         }
         end = true;
     }
