@@ -133,14 +133,16 @@ void Player::PositionPlayerShips(int len, bool autoFill)
 void ReplaceColorShip(Player& Player, int nShip)
 {
     int len = Player.ships[nShip][9];
-    for (int tY = Player.ships[nShip][1]; tY >= Player.ships[nShip][1] && tY <= Player.ships[nShip][len * 2]; tY++)
+    int tY = Player.ships[nShip][1];
+    int tX = Player.ships[nShip][0];
+    for (tY; tY >= Player.ships[nShip][1] && tY <= Player.ships[nShip][len * 2 - 1]; tY++)
     {
-        for (int tX = Player.ships[nShip][0]; tX >= Player.ships[nShip][0] && tX <= Player.ships[nShip][len * 2 - 1]; tX++)
+        for (tX; tX >= Player.ships[nShip][0] && tX <= Player.ships[nShip][len * 2 - 2]; tX++)
         {
             Player.playerField[tY][tX][1] = BG_CYAN;
         }
     }
-    for (int i = 0; i < 8 && Player.ships[nShip][i] != -1; i += 2)
+    for (int i = 0; i < len * 2 && Player.ships[nShip][i] != -1; i += 2)
     {
         int x = Player.ships[nShip][i];
         int y = Player.ships[nShip][i + 1];
