@@ -10,7 +10,9 @@ class Player{
 private:
     void PutShip(int x, int y, bool pos, int len);
     bool CheckValidPos(int x, int y, bool pos, int len, bool autoFill);
-    int tX, tY, temp = 1;
+    int tX = -1;
+    int tY = -1;
+    int temp = 1;
     int checkShip = 0;
     int mode = 0;
     unsigned short ship = 0;

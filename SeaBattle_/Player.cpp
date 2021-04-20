@@ -132,21 +132,28 @@ void Player::PositionPlayerShips(int len, bool autoFill)
 
 void ReplaceColorShip(Player& Player, int nShip)
 {
-    int a;
+    int len = Player.ships[nShip][9];
+    for (int tY = Player.ships[nShip][1]; tY >= Player.ships[nShip][1] && tY <= Player.ships[nShip][len * 2]; tY++)
+    {
+        for (int tX = Player.ships[nShip][0]; tX >= Player.ships[nShip][0] && tX <= Player.ships[nShip][len * 2 - 1]; tX++)
+        {
+            Player.playerField[tY][tX][1] = BG_CYAN;
+        }
+    }
     for (int i = 0; i < 8 && Player.ships[nShip][i] != -1; i += 2)
     {
         int x = Player.ships[nShip][i];
         int y = Player.ships[nShip][i + 1];
-        bool xy = x >= 1 && x <= 10 && y >= 1 && y <= 10;
+        /*bool xy = x >= 1 && x <= 10 && y >= 1 && y <= 10;*/
 
-        (Player.playerField[y + 1][x][1] == BG_BLUE && xy) ? Player.playerField[y + 1][x][1] = 46 : a = 0;
+    /*    (Player.playerField[y + 1][x][1] == BG_BLUE && xy) ? Player.playerField[y + 1][x][1] = 46 : a = 0;
         (Player.playerField[y + 1][x + 1][1] == BG_BLUE && xy) ? Player.playerField[y + 1][x + 1][1] = 46 : a = 0;
         (Player.playerField[y + 1][x - 1][1] == BG_BLUE && xy) ? Player.playerField[y + 1][x - 1][1] = 46 : a = 0;
         (Player.playerField[y - 1][x][1] == BG_BLUE && xy) ? Player.playerField[y - 1][x][1] = 46 : a = 0;
         (Player.playerField[y - 1][x - 1][1] == BG_BLUE && xy) ? Player.playerField[y - 1][x - 1][1] = 46 : a = 0;
         (Player.playerField[y - 1][x + 1][1] == BG_BLUE && xy) ? Player.playerField[y - 1][x + 1][1] = 46 : a = 0;
         (Player.playerField[y][x + 1][1] == BG_BLUE && xy) ? Player.playerField[y][x + 1][1] = 46 : a = 0;
-        (Player.playerField[y][x - 1][1] == BG_BLUE && xy) ? Player.playerField[y][x - 1][1] = 46 : a = 0;
+        (Player.playerField[y][x - 1][1] == BG_BLUE && xy) ? Player.playerField[y][x - 1][1] = 46 : a = 0;*/
 
         Player.playerField[y][x][1] = 41;
         Player.playerField[y][x][0] = 33;
@@ -207,23 +214,22 @@ void OutPos(Player &Player, int &x, int &y, int &tX, int &tY)
         int indent, t;
         if (Player.ships[1][8] == Player.ships[1][9] && Player.ships[2][8] == Player.ships[2][9])
         {
-            y = 1 + rand() % 10;
             x = 1 + rand() % 10;
         }
         else if (Player.ships[0][8] == Player.ships[0][9]) {
             int r = 1 + rand() % 3;
-            (r == 1) ? indent = 3 : indent = 1;
+            (r == 1) ? indent = 4 : indent = 2;
             t = indent - (y % 5);
             x = t + 1 + 4 * (rand() % 2);
         }
         else {
-            indent = 3;
+            indent = 4;
             t = indent - (y % 5);
             x = t + 1 + 4 * (rand() % 2);
         }
-        tX = x;
-        tY = y;
         if (Player.playerField[y][x][1] == BG_GREEN || Player.playerField[y][x][1] == BG_BLUE) {
+            tX = x;
+            tY = y;
             break;
         }
     }
@@ -247,7 +253,7 @@ void Player::MovePC(Player& Player, int& x, int& y)
             {
                 checkShip++;
                 bool xy = x >= 1 && x <= 10 && y >= 1 && y <= 10;
-                if (Player.playerField[y][x][1] != BG_BLUE || xy)
+                if (Player.playerField[y][x][1] != BG_BLUE)
                 {
                     continue;
                 }
@@ -257,12 +263,11 @@ void Player::MovePC(Player& Player, int& x, int& y)
                     temp = Player.ships[i][8];
                 }
                 break;
-            }else if (Player.playerField[y][x][1] == BG_GREEN) {
+            }else{
                 tX = x;
                 tY = y;
                 temp = 1;
             }
-            checkShip = 0;
             break;
         }
     }
@@ -288,7 +293,7 @@ bool Player::Move(Player &Player, bool a)
         {
             mode = 1;
         }
-        else if (Player.playerField[tY][tX][1] == BG_RED)
+        else if (tX >= 1 && tX <= 10 && tY >= 1 && tY <= 10 && Player.playerField[tY][tX][1] == BG_RED)
         {
             checkShip = 0;
             mode = 0;

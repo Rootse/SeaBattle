@@ -88,7 +88,7 @@ void GameStart()
                 GameField::DrawField(PlayerA.playerField, PlayerB.playerField, scoreA, scoreB);
                 Game.count++;
             }while(isHit);
-            unsigned short temp;
+            unsigned short temp = -1;
             if(Game.count > 20)
             {
                 temp = CheckWin(PlayerA, PlayerB);
