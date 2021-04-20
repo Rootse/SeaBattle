@@ -67,19 +67,27 @@ void GameStart()
         }
         while(Game.count < 100)
         {
-//            bool isHit = false;
-//            do
-//            {
-                PlayerA.Move(PlayerB);
+            bool isHit = false;
+            do
+            {
+                isHit = PlayerA.Move(PlayerB);
                 GameField::DrawField(PlayerA.playerField, PlayerB.playerField, scoreA, scoreB);
                 Game.count++;
-//            }while(isHit);
-//            do
-//            {
-                PlayerB.Move(PlayerA, true);
+            }while(isHit);
+            do
+            {
+                isHit = PlayerB.Move(PlayerA, true);
+//                for(int i = 0; i < 10; i++)
+//                {
+//                    for(int j = 0; j < 10; j++)
+//                    {
+//                        cout << PlayerA.ships[i][j] << " | ";
+//                    }
+//                    cout << "\n";
+//                }
                 GameField::DrawField(PlayerA.playerField, PlayerB.playerField, scoreA, scoreB);
                 Game.count++;
-//            }while(isHit);
+            }while(isHit);
             unsigned short temp;
             if(Game.count > 20)
             {

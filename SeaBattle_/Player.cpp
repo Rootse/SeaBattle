@@ -6,11 +6,12 @@ void Player::FillField()
     {
         for (int j = 0; j < SIZE_FIELD; j++)
         {
-            if (i != 0 && i != 11 && j != 0 && j != 11) {
-                if (i < 10 && j < 10)
-                {
-                    ships[i][j] = -1;
-                }
+            if (i < 10 && j < 10)
+            {
+                ships[i][j] = -1;
+            }
+            if (i != 0 && i != 11 && j != 0 && j != 11)
+            {
                 playerField[i][j][0] = T_WHITE;
                 playerField[i][j][1] = BG_BLUE;
             }
@@ -31,9 +32,9 @@ void Player::PutShip(int x, int y, bool pos, int len)
         ships[ship][i * 2 + 1] = y;
         (pos) ? x++ : y++;
     }
-    ships[ship][9] = len;
     ships[ship][8] = 0;
-    temp++;
+    ships[ship][9] = len;
+    ship++;
 }
 
 bool Player::CheckValidPos(int x, int y, bool pos, int len, bool autoFill)
@@ -152,7 +153,7 @@ void ReplaceColorShip(Player& Player, int nShip)
     }
 }
 
-int FindShip(Player& Player, int x, int y)
+int FindShip(Player &Player, int x, int y)
 {
     for (int i = 0; i < SIZE_SHIPS; i++)
     {
@@ -167,9 +168,9 @@ int FindShip(Player& Player, int x, int y)
     return -1;
 }
 
-void IsDeadShip(Player& Player, int x, int y)
+void IsDeadShip(Player &Player, int x, int y)
 {
-    int text = T_WHITE, bg = 0;
+    int text = T_WHITE, bg = BG_BLACK;
     bool end = false;
     int i = FindShip(Player, x, y);
     if (i != -1)
@@ -199,15 +200,15 @@ void IsDeadShip(Player& Player, int x, int y)
     }
 }
 
-void OutPos(Player& Player, int& x, int& y, int& tX, int& tY)
+void OutPos(Player &Player, int &x, int &y, int &tX, int &tY)
 {
     while (true) {
-        y = 1 + rand() % 11;
+        y = 1 + rand() % 10;
         int indent, t;
         if (Player.ships[1][8] == Player.ships[1][9] && Player.ships[2][8] == Player.ships[2][9])
         {
-            y = 1 + rand() % 11;
-            x = 1 + rand() % 11;
+            y = 1 + rand() % 10;
+            x = 1 + rand() % 10;
         }
         else if (Player.ships[0][8] == Player.ships[0][9]) {
             int r = 1 + rand() % 3;
@@ -267,7 +268,7 @@ void Player::MovePC(Player& Player, int& x, int& y)
     }
 }
 
-bool Player::Move(Player& Player, bool a)
+bool Player::Move(Player &Player, bool a)
 {
     int x, y;
     if (!a)
@@ -283,7 +284,7 @@ bool Player::Move(Player& Player, bool a)
     else {
         MovePC(Player, x, y);
         IsDeadShip(Player, x, y);
-        if (Player.playerField[y][x][0] == 33 && Player.playerField[y][x][1] != 41)
+        if (Player.playerField[y][x][0] == T_YELLOW && Player.playerField[y][x][1] != BG_RED)
         {
             mode = 1;
         }
@@ -293,8 +294,8 @@ bool Player::Move(Player& Player, bool a)
             mode = 0;
         }
     }
-//    if(Player.playerField[y][x][1] == BG_WHITE || Player.playerField[y][x][1] == BG_RED){
-//        return true;
-//    }
-//    return false;
+    if(Player.playerField[y][x][1] == BG_WHITE || Player.playerField[y][x][1] == BG_RED){
+        return true;
+    }
+    return false;
 }
