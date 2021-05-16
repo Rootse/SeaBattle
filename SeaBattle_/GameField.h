@@ -25,8 +25,10 @@ class GameField
 private:
 
 public:
-    unsigned short int count = 0;
-    static void DrawField(int PlayerA[][SIZE_FIELD][2], int PlayerB[][SIZE_FIELD][2], int A, int B);
+    unsigned short count = 0;
+    unsigned int scoreA = 0;
+    unsigned int scoreB = 0;
+    void DrawField(int PlayerA[][SIZE_FIELD][2], int PlayerB[][SIZE_FIELD][2]);
 };
 
 #endif // SEABATTLE_GAMEFIELD_H

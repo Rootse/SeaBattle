@@ -200,16 +200,16 @@ void IsDeadShip(Player &Player, int x, int y)
     }
 }
 
-void GetPos(Player &Player, int &x, int &y, int &tX, int &tY)
+void GetPos(Player &P, int &x, int &y, int &tX, int &tY)
 {
     while (true) {
         y = 1 + rand() % 10;
         int indent, t;
-        if (Player.ships[1][8] == Player.ships[1][9] && Player.ships[2][8] == Player.ships[2][9])
+        if (P.ships[0][8] == P.ships[0][9] && P.ships[1][8] == P.ships[1][9] && P.ships[2][8] == P.ships[2][9])
         {
             x = 1 + rand() % 10;
         }
-        else if (Player.ships[0][8] == Player.ships[0][9]) {
+        else if (P.ships[0][8] == P.ships[0][9]) {
             int r = 1 + rand() % 3;
             (r == 1) ? indent = 4 : indent = 2;
             t = indent - (y % 5);
@@ -220,7 +220,7 @@ void GetPos(Player &Player, int &x, int &y, int &tX, int &tY)
             t = indent - (y % 5);
             x = t + 1 + 3 * (rand() % 3);
         }
-        if (Player.playerField[y][x][1] == BG_GREEN || Player.playerField[y][x][1] == BG_BLUE) {
+        if (P.playerField[y][x][1] == BG_GREEN || P.playerField[y][x][1] == BG_BLUE) {
             tX = x;
             tY = y;
             break;

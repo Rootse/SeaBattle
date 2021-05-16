@@ -1,10 +1,10 @@
 #include "GameField.h"
 
 
-void GameField::DrawField(int PlayerA[][SIZE_FIELD][2], int PlayerB[][SIZE_FIELD][2], int A, int B) {
+void GameField::DrawField(int PlayerA[][SIZE_FIELD][2], int PlayerB[][SIZE_FIELD][2]) {
     system("clear");
 //    system("cls");
-    cout << setw(36) << "Счет - " << A << " | " << B << "\n";
+    cout << setw(36) << "Счет - " << scoreA << " | " << scoreB << "\n";
     for (int i = 0; i < SIZE_FIELD * 2; i++) {
         char sym = (char) (i + 64);
         if ( i == 0) {

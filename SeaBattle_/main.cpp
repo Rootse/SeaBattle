@@ -31,62 +31,74 @@ int CheckWin(Player &PlayerA, Player &PlayerB)
     return 0;
 }
 
+void PutShips(Player &A, Player &B, GameField G, bool aut = true)
+{
+    for(int i = 4; i >= 1; i--)
+    {
+        for(int j = i; j != 5; j++)
+        {
+            A.PositionPlayerShips(i, aut);
+            B.PositionPlayerShips(i, aut);
+            G.DrawField(A.playerField, B.playerField);
+        }
+    }
+}
+
+void Moves(Player &pA, Player &pB, GameField &G)
+{
+    bool isHit = false;
+    unsigned short shipA = 0;
+    unsigned short shipB = 0;
+    while(true)
+    {
+        do
+        {
+            isHit = pA.Move(pB);
+            G.DrawField(pA.playerField, pB.playerField);
+            if (isHit)
+            {
+                shipA++;
+            }
+        } while (isHit);
+        do {
+            isHit = pB.Move(pA, true);
+            G.DrawField(pA.playerField, pB.playerField);
+            if (isHit)
+            {
+                shipB++;
+            }
+        } while (isHit);
+        if (shipA == 20)
+        {
+            ++G.scoreA;
+            break;
+        } else if (shipB == 20)
+        {
+            ++G.scoreB;
+            break;
+        }
+    }
+}
+
 void GameStart()
 {
     GameField Game;
-    Player PlayerA;
-    Player PlayerB;
 
     bool end = false;
-    while(!end)
+    int i = 0;
+    while(i<10)
     {
-        unsigned short scoreA = 0;
-        unsigned short scoreB = 0;
+        Player PlayerA;
+        Player PlayerB;
         PlayerA.FillField();
         PlayerB.FillField();
-        GameField::DrawField(PlayerA.playerField, PlayerB.playerField, scoreA, scoreB);
+        Game.DrawField(PlayerA.playerField, PlayerB.playerField);
 
-        for(int i = 4; i >= 1; i--)
-        {
-            for(int j = i; j != 5; j++)
-            {
-                PlayerA.PositionPlayerShips(i, true);
-                PlayerB.PositionPlayerShips(i, true);
-                GameField::DrawField(PlayerA.playerField, PlayerB.playerField, scoreA, scoreB);
-            }
-        }
-        bool isHit = false;
-        unsigned short shipA = 0;
-        unsigned short shipB = 0;
-        while(true)
-        {
-            do
-            {
-                isHit = PlayerA.Move(PlayerB);
-                GameField::DrawField(PlayerA.playerField, PlayerB.playerField, scoreA, scoreB);
-                if (isHit)
-                {
-                    shipA++;
-                }
-            } while (isHit);
-            do {
-                isHit = PlayerB.Move(PlayerA, true);
-                GameField::DrawField(PlayerA.playerField, PlayerB.playerField, scoreA, scoreB);
-                if (isHit)
-                {
-                    shipB++;
-                }
-            } while (isHit);
-            if (shipA == 10)
-            {
-                scoreA++;
-                break;
-            } else if (shipB == 10)
-            {
-                scoreB++;
-                break;
-            }
-        }
+        PutShips(PlayerA, PlayerB, Game);
+
+        Moves(PlayerA, PlayerB, Game);
+
+        i++;
         end = true;
     }
 }
